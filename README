@@ -12,13 +12,13 @@ When you drop new files in the spooldir and next execute the script the it
 will attempt to run the command against those files; in this case attempting
 to 'scp' it to 'myserver'. Should the scp succeed (returns shell exit
 status 0) the file will be deleted from spooldir, if it fails it will enter
-a retry strategy, bydefault retrying after 1 hour.  The script achieves this
-retry by renaming the files prepending the next retry time to the filename
+a retry strategy, by default retrying after 1 hour.  The script achieves this
+bahaviour by renaming the files, appending the next retry time to the filename
 e.g. "myfile" becomes "myfile-retry20170726000000", ensuring the script
 ignores the file until after 2017-07-26 01:00:00, 1 hour after the current
 time.
 
-Here is a detailed breakdown of the arguments
+Here are the the arguments
 
 ./retry-command.pl [--help|-h] --cmd|-c [--retry|-r <secs>] --spooldir|-s <dir>
   -h --help           display this help content
