@@ -1,0 +1,30 @@
+Small perl script that will look for files in a queue directory and run a
+shell command against them. Should the shell command fail the command will
+be retried periodically. Should the command succeeed the file will be
+deleted from the spool directory.
+
+The script is not persistent in memory hence has to be executed
+periodically, e.g. from cron every minute
+
+* * * * * /path/to/retry-command.pl --cmd "scp {} myserver:" --spooldir /path/to/spooldir
+
+When you drop new files in the spooldir and next execute the script the it
+will attempt to run the command against those files; in this case attempting
+to 'scp' it to 'myserver'. Should the scp succeed (returns shell exit
+status 0) the file will be deleted from spooldir, if it fails it will enter
+a retry strategy, bydefault retrying after 1 hour.  The script achieves this
+retry by renaming the files prepending the next retry time to the filename
+e.g. "myfile" becomes "myfile-retry20170726000000", ensuring the script
+ignores the file until after 2017-07-26 01:00:00, 1 hour after the current
+time.
+
+Here is a detailed breakdown of the arguments
+
+./retry-command.pl [--help|-h] --cmd|-c [--retry|-r <secs>] --spooldir|-s
+<dir>
+  -h --help           display this help content
+  -c --cmd  <cmd>     execute this command on queue contents: substitute {}
+  -for filename from spool directory
+  -r --retry <secs>   retry failed commands every <secs> (default 3600)
+  -s --spooldir <dir> pick up work from this directory (e.g. work queue)
+
