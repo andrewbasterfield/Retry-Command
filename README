@@ -20,11 +20,9 @@ time.
 
 Here is a detailed breakdown of the arguments
 
-./retry-command.pl [--help|-h] --cmd|-c [--retry|-r <secs>] --spooldir|-s
-<dir>
+./retry-command.pl [--help|-h] --cmd|-c [--retry|-r <secs>] --spooldir|-s <dir>
   -h --help           display this help content
-  -c --cmd  <cmd>     execute this command on queue contents: substitute {}
-  -for filename from spool directory
+  -c --cmd  <cmd>     execute this command on queue contents: substitute {} for filename from spool directory
   -r --retry <secs>   retry failed commands every <secs> (default 3600)
   -s --spooldir <dir> pick up work from this directory (e.g. work queue)
 
